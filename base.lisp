@@ -283,12 +283,12 @@
                                        (values ,@(reverse *result-values*)))))))))
       ,@ (when export-p `((export ',lisp-name))))))
 
-
-(cffi:define-foreign-library (lib-magick-wand :reload-on-restart nil)
-  (:darwin "libMagickWand.dylib")
-  (:unix (:or "libMagickWand.so" "libWand.so.9" "libWand.so"))
-  (t (:default "libWand")))
-(cffi:use-foreign-library lib-magick-wand)
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (cffi:define-foreign-library (lib-magick-wand :canary "DestroyPixelWand" :reload-on-restart nil)
+    (:darwin "libMagickWand.dylib")
+    (:unix (:or "libMagickWand.so" "libWand.so.9" "libWand.so"))
+    (t (:default "libWand")))
+  (cffi:use-foreign-library lib-magick-wand))
 
 (defun type-name-to-class-name (name)
   (intern (concatenate 'string (symbol-name name) "-TYPE-CLASS")
