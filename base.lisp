@@ -288,7 +288,7 @@
     (:darwin "libMagickWand.dylib")
     (:unix (:or "libMagickWand.so" "libWand.so.9" "libWand.so"))
     (t (:default "libWand")))
-  (cffi:use-foreign-library lib-magick-wand))
+  (cffi:load-foreign-library 'lib-magick-wand))
 
 (defun type-name-to-class-name (name)
   (intern (concatenate 'string (symbol-name name) "-TYPE-CLASS")
