@@ -284,7 +284,7 @@
       ,@ (when export-p `((export ',lisp-name))))))
 
 
-(cffi:define-foreign-library (lib-magick-wand :canary "DestroyPixelWand")
+(cffi:define-foreign-library (lib-magick-wand :reload-on-restart nil)
   (:darwin "libMagickWand.dylib")
   (:unix (:or "libMagickWand.so" "libWand.so.9" "libWand.so"))
   (t (:default "libWand")))
